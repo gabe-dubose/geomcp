@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/996437834.svg)](https://doi.org/10.5281/zenodo.15608125)
 # Geometric insights into the evolutionary stability of conditional phenotypes
 This repository contains the scripts and simulated data used in the associated manuscript. Model descriptions, as well as descriptions of simulation and numerical analyses can be foudn in the associated manuscript. As described below, allo scripts are located in the <b><i>scripts</i></b> directory, and simulated data is located in the  <b><i>scripts</i></b> directory. 
 
