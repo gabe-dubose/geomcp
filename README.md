@@ -1,6 +1,6 @@
 [![DOI](https://zenodo.org/badge/996437834.svg)](https://doi.org/10.5281/zenodo.15608125)
 # GEOMCP: GEOmetric Model of Conditional Phenotypes
-This repository contains the scripts and simulated data used in the associated manuscript (<i>Geometric insights into the evolutionary stability of conditional phenotypes</i>). Model descriptions, as well as descriptions of simulation and numerical analyses can be foudn in the associated manuscript. As described below, allo scripts are located in the <b><i>scripts</i></b> directory, and simulated data is located in the  <b><i>scripts</i></b> directory. 
+This repository contains the scripts and simulated data used in the associated manuscript (<i>Geometric insights into the role of pleiotropy in shaping the evolutionary dynamics of conditional phenotypes</i>). Model descriptions, as well as descriptions of simulation and numerical analyses can be foudn in the associated manuscript. As described below, allo scripts are located in the <b><i>scripts</i></b> directory, and simulated data is located in the  <b><i>scripts</i></b> directory. 
 
 ## scripts
 
