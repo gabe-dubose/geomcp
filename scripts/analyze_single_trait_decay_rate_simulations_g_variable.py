@@ -52,7 +52,7 @@ ax1.axvline(x=50, color='white', linestyle='--', linewidth=1)
 plt.tight_layout()
 plt.show()
 
-fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 4))
+fig, [ax1, ax2] = plt.subplots(1, 2, figsize=(9, 4))
 
 # transpose data
 data = decay_rates.T
@@ -82,7 +82,7 @@ cbar.ax.set_title(r"$\lambda_C$", fontsize=15, pad=10)
 ax1.set_xlim(0, 1)
 ax1.set_ylim(0, 100)
 ax1.set_xlabel(r"Relative expression ($r$)", fontsize = 15)
-ax1.set_ylabel(r"Gens. between expression ($g$)", fontsize=15)
+ax1.set_ylabel(r"Gens. between expr. ($g$)", fontsize=15)
 ax1.tick_params(axis='both', labelsize=12)
 
 # define values
@@ -101,7 +101,7 @@ for i, r in enumerate(r_values):
     # Plot decay rate vs. f_C
     ax2.plot(y_vals, decay_at_r, color=color, linewidth=2.5)
 
-ax2.set_xlabel(r"Gens. between expression ($g$)", fontsize=15)
+ax2.set_xlabel(r"Gens. between expr. ($g$)", fontsize=15)
 ax2.set_ylabel(r"Decay rate ($\lambda_C$)", fontsize=15)
 ax2.tick_params(axis='both', labelsize=12)
 
@@ -109,48 +109,16 @@ ax2.tick_params(axis='both', labelsize=12)
 sm_b = ScalarMappable(cmap=viridis, norm=mpl.colors.Normalize(vmin=0.5, vmax=1.0))
 sm_b.set_array([])
 cbar_b = plt.colorbar(sm_b, ax=ax2, orientation='vertical', pad=0.03)
-#cbar_b.set_label(r"Relative expression ($r$)", fontsize=15)
 cbar_b.ax.tick_params(labelsize=12)
 cbar_b.ax.set_title(r"$r$", fontsize=15, pad=10)
 
-# derivatives
-for i, r in enumerate(r_values):
-    r_index = (np.abs(x_vals - r)).argmin()
-    r_actual = x_vals[r_index]
-
-    decay_at_r = zz[:, r_index]
-    decay_gradient = np.gradient(decay_at_r, dfC)
-
-    # Fit spline
-    spline = UnivariateSpline(y_vals, decay_gradient, s=0.000075)
-    y_vals_fine = np.linspace(0, 100, 200)
-    pred_gradient = spline(y_vals_fine)
-
-    color = viridis(i)
-    ax3.plot(y_vals_fine, pred_gradient, color=color, linewidth=2.5)
-
-ax3.set_xlabel(r"Gens. between expression ($g$)", fontsize=15)
-ax3.set_ylabel(r"$d \lambda_C$ / $d g$", fontsize=15)
-#ax3.set_ylim(-0.0175, 0)
-ax3.yaxis.set_major_formatter(FuncFormatter(lambda y, _: f"{y:.1e}"))
-ax3.tick_params(axis='both', labelsize=12)
-
-# add colorbar
-sm_c = ScalarMappable(cmap=viridis, norm=mpl.colors.Normalize(vmin=0.5, vmax=1.0))
-sm_c.set_array([])
-cbar_c = plt.colorbar(sm_c, ax=ax3, orientation='vertical', pad=0.03)
-#cbar_c.set_label(r"Relative expression ($r$)", fontsize=15)
-cbar_c.ax.tick_params(labelsize=12)
-cbar_c.ax.set_title(r"$r$", fontsize=15, pad=10)
-
-# Panel labels
-ax1.text(-0.22, 1.15, 'A', transform=ax1.transAxes, fontsize=17, va='top', ha='left')
-ax2.text(-0.28, 1.15, 'B', transform=ax2.transAxes, fontsize=17, va='top', ha='left')
-ax3.text(-0.375, 1.15, 'C', transform=ax3.transAxes, fontsize=17, va='top', ha='left')
+# panel labels
+ax1.text(-0.26, 1.15, 'A', transform=ax1.transAxes, fontsize=17, va='top', ha='left')
+ax2.text(-0.32, 1.15, 'B', transform=ax2.transAxes, fontsize=17, va='top', ha='left')
 
 ax2.set_xticks([0, 25, 50, 75, 100])
-ax3.set_xticks([0, 25, 50, 75, 100])
 
 
 plt.tight_layout()
+
 plt.show()
