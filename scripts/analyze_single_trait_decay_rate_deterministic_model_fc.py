@@ -106,4 +106,4 @@ plt.show()
 
 
 ##Save the figure
-plt.savefig("single_trait_decay_rate_fc_variable.png", dpi=600)
+# plt.savefig("single_trait_decay_rate_fc_variable.png", dpi=600)
