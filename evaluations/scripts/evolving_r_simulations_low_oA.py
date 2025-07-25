@@ -50,7 +50,7 @@ for i in range(iterations):
 # convert results to pandas dataframe
 results_df = pd.DataFrame(results)
 # save to file
-results_df.to_csv('../data/evolving_pleio_no_init.csv', index=False)
+results_df.to_csv('../data/evolving_pleio_no_init_low_oA.csv', index=False)
 
 #######################################
 ##### LESS PLEIOTROPY SIMULATIONS #####
@@ -79,7 +79,7 @@ for i in range(iterations):
 # convert results to pandas dataframe
 results_df = pd.DataFrame(results)
 # save to file
-results_df.to_csv('../data/evolving_pleio_low_init.csv', index=False)
+results_df.to_csv('../data/evolving_pleio_low_init_low_oA.csv', index=False)
 
 #######################################
 ##### HIGH PLEIOTROPY SIMULATIONS #####
@@ -108,4 +108,4 @@ for i in range(iterations):
 # convert results to pandas dataframe
 results_df = pd.DataFrame(results)
 # save to file
-results_df.to_csv('../data/evolving_pleio_high_init.csv', index=False)
+results_df.to_csv('../data/evolving_pleio_high_init_low_oA.csv', index=False)

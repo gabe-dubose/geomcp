@@ -187,4 +187,4 @@ def decay_rate_space(r_values, f_C_values, n_runs):
 
 n_runs = 10
 decay_rates = decay_rate_space(r_values, f_C_values, n_runs)
-decay_rates.to_csv('decay_rates_data.csv')
+decay_rates.to_csv('decay_rates_data_spatial.csv')
