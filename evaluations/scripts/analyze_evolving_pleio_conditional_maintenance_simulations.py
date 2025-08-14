@@ -9,8 +9,6 @@ import matplotlib.cm as cm
 non_evolving_df = pd.read_csv('../data/non_evolving_pleio_conditional_decay.csv')
 evolving_df = pd.read_csv('../data/evolving_pleio_conditional_decay.csv')
 
-sns.set_style('whitegrid')
-
 # define colors
 n_col = 3
 viridis = cm.get_cmap('viridis', n_col)
