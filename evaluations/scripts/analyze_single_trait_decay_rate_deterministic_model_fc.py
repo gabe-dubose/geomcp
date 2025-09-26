@@ -8,10 +8,12 @@ from matplotlib.colors import PowerNorm
 from matplotlib.colors import ListedColormap, BoundaryNorm
 from matplotlib.colors import Normalize
 from matplotlib import cm
+from scipy.ndimage import gaussian_filter
 from matplotlib.ticker import ScalarFormatter
 from matplotlib.ticker import FuncFormatter
 from matplotlib.cm import ScalarMappable
 import matplotlib as mpl
+import matplotlib.lines as mlines
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -66,9 +68,10 @@ ax1.tick_params(axis='both', labelsize=12)
 ##### ax2: lambda_C(f_C) lines #####
 
 r_dense = np.linspace(0.0, 1.0, 505)  # dense r-grid for interpolation
-r_sparse = np.arange(0.5, 1.01, 0.02)             # sparse r-grid for visual clarity
+r_sparse = np.arange(0.5, 1.01, 0.1)             # sparse r-grid for visual clarity
 viridis = cm.get_cmap('viridis', len(r_sparse))   # colormap for the sparse r values
 
+# --- Analytical curves ---
 # Panel B: slices λ_C vs f_C
 for k, r in enumerate(r_sparse):
     # find the matching index in the original dense grid
@@ -79,6 +82,27 @@ for k, r in enumerate(r_sparse):
         Lambda[:, i_dense],
         color=viridis(k),
         lw=2.5
+    )
+
+# --- Numerical curves ---
+decay_rates = pd.read_csv('../data/decay_rates_data_spatial.csv', index_col=0)
+data = decay_rates.T
+zz = gaussian_filter(data.values, sigma=4)
+
+ny, nx = data.shape
+x_vals = np.linspace(0, 1, nx)
+y_vals = np.linspace(0, 1, ny)
+
+for k, r in enumerate(r_sparse):
+    r_index = (np.abs(x_vals - r)).argmin()
+    decay_at_r = zz[:, r_index]
+    ax2.plot(
+        y_vals,
+        decay_at_r,
+        color=viridis(k),
+        lw=2.0,
+        linestyle="--",  # dashed style
+        label=f"sim r={r:.1f}"
     )
 
 # Add colorbar for r
@@ -101,9 +125,20 @@ ax2.set_xticks([0, 0.25, 0.5, 0.75, 1])
 ax1.text(-0.24, 1.15, 'A', transform=ax1.transAxes, fontsize=17, va='top', ha='left')
 ax2.text(-0.32, 1.15, 'B', transform=ax2.transAxes, fontsize=17, va='top', ha='left')
 
+# add panel b legend
+analytic_handle = mlines.Line2D([], [], color="tab:gray", linestyle="-", lw=2, label="Analytical")
+numeric_handle  = mlines.Line2D([], [], color="tab:gray", linestyle="--", lw=2, label="Numerical")
+
+ax2.legend(
+    handles=[analytic_handle, numeric_handle],
+    loc="upper right",
+    fontsize=12,
+    frameon=False
+)
+
 plt.tight_layout()
 plt.show()
 
 
 ##Save the figure
-# plt.savefig("single_trait_decay_rate_fc_variable.png", dpi=600)
+#plt.savefig("single_trait_decay_rate_fc_variable.png", dpi=600)
